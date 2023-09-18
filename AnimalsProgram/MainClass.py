@@ -2,8 +2,10 @@ from AnimalsMainClass import AnimalsMainClass
 from MenuMainClass import MenuMainClass
 
 
-class MainClass(AnimalsMainClass, MenuMainClass):
-    def __init__(self): super().__init__()
+class MainClass(MenuMainClass):
+    def __init__(self):
+        super().__init__()
+        self.AnimalsMainClass = AnimalsMainClass
 
     def start_program(self):
         btn_command = "start"
@@ -12,10 +14,10 @@ class MainClass(AnimalsMainClass, MenuMainClass):
             user_answer = self.get_answer(["0", "1", "2"])
             if user_answer == "1":
                 from ViewAllClass import ViewAllClass
-                ViewAllClass().view_all_db()
+                ViewAllClass(self.AnimalsMainClass()).view_all_db()
             elif user_answer == "2":
                 from ViewCreateClass import ViewCreateClass
-                ViewCreateClass().print_create_menu()
+                ViewCreateClass(self.AnimalsMainClass()).view_create_new_animal()
         return True
 
 
