@@ -1,0 +1,2 @@
+class CatsClass:
+    pass
