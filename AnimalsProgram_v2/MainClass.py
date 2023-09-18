@@ -17,7 +17,7 @@ class MainClass(MenuMainClass):
             elif user_answer == "2":
                 from ViewCreateClass import ViewCreateClass
                 create_view = ViewCreateClass(self.animals_list)
-                create_view.view_create_new_animal()
+                self.animals_list = create_view.view_create_new_animal()
             elif user_answer == "3":
                 from ViewComClass import ViewComClass
                 commands_view = ViewComClass(self.animals_list)

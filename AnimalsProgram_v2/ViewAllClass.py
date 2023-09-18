@@ -22,7 +22,7 @@ class ViewAllClass(MenuMainClass):
                 for animal in self.animals_list:
                     print(f"{i}: {animal.animal_rus.capitalize()} {animal.animal_name.capitalize()} ")
                     i += 1
-                user_answer = self.get_answer([str(s) for s in range(i+1)])
+                user_answer = self.get_answer([str(s) for s in range(i)])
                 if user_answer == "0":
                     break
                 else:

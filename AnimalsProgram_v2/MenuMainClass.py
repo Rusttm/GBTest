@@ -26,21 +26,11 @@ class MenuMainClass:
 
     def print_create1_menu(self):
         print("Введите тип животного:")
-        print("1: Домашнее животное")
-        print("2: Вьючное животное")
-        print("0: для выхода")
-
-    def print_create2_menu(self):
-        print("Введите домашнее животное:")
         print("1: Кошка")
         print("2: Собака")
         print("3: Хомяк")
-        print("0: для выхода")
-
-    def print_create3_menu(self):
-        print("Введите вьючное животное:")
-        print("1: Лошадь")
-        print("2: Верблюд")
+        print("4: Лошадь")
+        print("5: Верблюд")
         print("0: для выхода")
 
     def print_create_animal_name_menu(self):
