@@ -1,4 +1,4 @@
-from AnimalsProgram import AnimalsMainClass
+from AnimalsProgram.AnimalsMainClass import AnimalsMainClass
 
 
 class PacksMainClass(AnimalsMainClass):
