@@ -3,9 +3,14 @@ from PetsMainClass import PetsMainClass
 
 class CatsClass(PetsMainClass):
     animal_type = "cats"
-    def __init__(self): super().__init__()
+    animal_rus = "кошка"
+
+    def __init__(self):
+        super().__init__()
 
 
 if __name__ == '__main__':
-    animal_type = CatsClass()
-    print(animal_type.create_new_dict())
+    cat_obj = CatsClass()
+    new_cat = cat_obj.add_new_animal("Kittie", "voice,eat")
+
+    print(new_cat.get_animal_dict())

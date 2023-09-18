@@ -7,13 +7,13 @@ class MainClass(MenuMainClass):
         super().__init__()
 
     def start_program(self):
-        btn_command = "start"
-        while btn_command != "0":
+        user_answer = "start"
+        while user_answer != "0":
             self.print_main_menu()
             user_answer = self.get_answer(["0", "1", "2", "3"])
             if user_answer == "1":
                 from ViewAllClass import ViewAllClass
-                ViewAllClass(self.animals_list).view_all_db()
+                ViewAllClass(self.animals_list).view_all_animals()
             elif user_answer == "2":
                 from ViewCreateClass import ViewCreateClass
                 create_view = ViewCreateClass(self.animals_list)
@@ -27,5 +27,8 @@ class MainClass(MenuMainClass):
 
 if __name__ == '__main__':
     connector = MainClass()
-
+    from CatsClass import CatsClass
+    cat_obj = CatsClass()
+    new_cat = cat_obj.add_new_animal("Kittie", "voice,eat")
+    connector.animals_list.append(new_cat)
     connector.start_program()

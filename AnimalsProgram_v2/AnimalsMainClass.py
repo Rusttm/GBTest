@@ -1,4 +1,4 @@
-from AnimalsProgram_v2.AnimalsLogger import AnimalsLogger
+from AnimalsLogger import AnimalsLogger
 
 
 class AnimalsMainClass(AnimalsLogger):
@@ -10,19 +10,25 @@ class AnimalsMainClass(AnimalsLogger):
     def __init__(self):
         super().__init__()
 
-    def add_name(self, name:str):
+    def add_new_animal(self, name: str, commands_str: str):
+        self.add_name(name)
+        self.add_command(commands_str)
+        return self
+
+    def add_name(self, name: str):
         self.animal_name = name.capitalize()
 
-    def add_command(self, command: str):
-        self.animal_commands.append(command.lower())
+    def add_command(self, command_str: str):
+        commands_str_list = command_str.lower().split(',')
+        self.animal_commands += commands_str_list
 
     def get_commands_str(self) -> str:
         return ', '.join(self.animal_commands)
 
-    def create_new_dict(self) -> dict:
+    def get_animal_dict(self) -> dict:
         return dict({"group": self.animal_group, "type": self.animal_type, "name": self.animal_name, "commands": self.animal_commands})
 
 
 if __name__ == '__main__':
     animal_class = AnimalsMainClass()
-    print(animal_class.create_new_dict())
+    print(animal_class.get_animal_dict())

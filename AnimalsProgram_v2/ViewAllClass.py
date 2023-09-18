@@ -2,22 +2,27 @@ from MenuMainClass import MenuMainClass
 
 
 class ViewAllClass(MenuMainClass):
-    def __init__(self, animals_list):
-        super().__init__()
+    animals_list = None
+    keys_converter = {'group': 'группа', 'type': 'тип животного', 'name': 'имя', 'commands': 'комманды'}
+    values_converter = {'pets': 'домашние животные', 'packs': 'вьючные животные'}
 
-    def view_all_db(self):
-        while True:
-            self.print_view_menu()
-            for animal in self.AnimalsMainClass.cur_db_list:
-                animal_genus = animal.get('genus', None)
-                animal_genus_name = self.AnimalsMainClass.animals_genus_dict.get(animal_genus, None)
-                animal_name = animal.get('name', None)
-                print(f"{animal_genus_name.capitalize()} с кличкой {animal_name.capitalize()} знает комманды: {animal.get('commands', None)}")
-            user_answer = self.get_answer(["0"])
-            if user_answer == "0":
-                break
+    def __init__(self, animals_list: list):
+        super().__init__()
+        self.animals_list = animals_list
+
+    def view_all_animals(self):
+        if not self.animals_list:
+            print("Список животных пуст")
+        else:
+            while True:
+                self.print_view_menu()
+                for animal in self.animals_list:
+                    animal_dict = animal.get_animal_dict()
+                user_answer = self.get_answer(["0"])
+                if user_answer == "0":
+                    break
 
 
 if __name__ == '__main__':
     new_view = ViewAllClass()
-    new_view.view_all_db()
+    new_view.view_all_animals()
