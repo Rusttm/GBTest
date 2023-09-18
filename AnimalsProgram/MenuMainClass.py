@@ -14,7 +14,7 @@ class MenuMainClass:
 
 
     def print_create_menu(self):
-        print("Создание нового животного.")
+        print("Добавление нового животного.")
 
     def print_create1_menu(self):
         print("Введите тип животного:")
@@ -35,6 +35,12 @@ class MenuMainClass:
         print("2: Верблюд")
         print("0: для выхода")
 
+    def print_create_animal_name_menu(self):
+        print("Введите кличку животного:")
+
+    def print_create_animal_commands_menu(self):
+        print("Введите через ',' комманды, которые животное знает:")
+
     def print_corr_menu(self):
         print("Изменение комманд животного. 0 - завершить")
 
@@ -43,8 +49,6 @@ class MenuMainClass:
             user_answer = input(f"Нажмите одни из предложенных вариантов {','.join(right_answers_list)}:")
             if user_answer in right_answers_list:
                 return user_answer
-
-
 
 
 if __name__ == '__main__':

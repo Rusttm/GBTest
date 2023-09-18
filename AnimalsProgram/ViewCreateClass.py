@@ -13,7 +13,7 @@ class ViewCreateClass(AnimalsMainClass, MenuMainClass):
             order_answer_dict = {"1": "pets", "2": "packs"}
             genus_pets_answer_dict = {"1": "cats", "2": "dogs", "3": "hamsters"}
             genus_packs_answer_dict = {"1": "horses", "2": "camels"}
-            animal_order = animal_type = None
+            new_animal = dict({"kingdom": "animals"})
             if user_answer == "0":
                 break
             elif user_answer == "1":
@@ -23,7 +23,7 @@ class ViewCreateClass(AnimalsMainClass, MenuMainClass):
                 if user_answer == "0":
                     break
                 else:
-                    animal_type = genus_pets_answer_dict.get(user_answer)
+                    new_animal["order"] = genus_pets_answer_dict.get(user_answer)
 
             elif user_answer == "2":
                 animal_order = order_answer_dict.get(user_answer)
@@ -32,8 +32,21 @@ class ViewCreateClass(AnimalsMainClass, MenuMainClass):
                 if user_answer == "0":
                     break
                 else:
-                    animal_type = genus_packs_answer_dict.get(user_answer)
-            print(f"{animal_order=}, {animal_type=}")
+                    new_animal["genus"] = genus_packs_answer_dict.get(user_answer)
+
+            self.print_create_animal_name_menu()
+            user_answer = input("? ")
+            if (user_answer == "0") or (user_answer == ""):
+                break
+            else:
+                new_animal["name"] = user_answer.capitalize()
+            self.print_create_animal_commands_menu()
+            user_answer = input("? ")
+            if user_answer == "0":
+                break
+            else:
+                new_animal["commands"] = user_answer.lower()
+            print(f"Добавляем новое животное: {new_animal=}")
 
 
 if __name__ == '__main__':
