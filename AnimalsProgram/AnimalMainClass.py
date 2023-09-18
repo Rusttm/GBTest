@@ -1,0 +1,2 @@
+class AnimalMainClass(object):
+    pass
