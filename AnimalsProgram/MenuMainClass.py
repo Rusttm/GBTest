@@ -41,9 +41,13 @@ class MenuMainClass:
     def print_create_animal_commands_menu(self):
         print("Введите через ',' комманды, которые животное знает:")
 
-    def print_corr_menu(self):
-        print("Изменение комманд животного. 0 - завершить")
-
+    def print_corr_menu(self, animals_list: list):
+        print("Изменение комманд животного. Какое животное Вы хотите обучить?")
+        i = 1
+        for animal in animals_list:
+            print(f"{i}: {animal}")
+            i += 1
+        print("0: для выхода")
     def get_answer(self, right_answers_list: list) -> str:
         while True:
             user_answer = input(f"Нажмите одни из предложенных вариантов {','.join(right_answers_list)}:")
