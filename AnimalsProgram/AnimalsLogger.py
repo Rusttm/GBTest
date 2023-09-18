@@ -1,7 +1,8 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
-class AnimalsLogger():
+
+class AnimalsLogger:
     logger_name = "animals"
     logger = None
 
