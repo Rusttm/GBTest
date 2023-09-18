@@ -34,7 +34,7 @@ class AnimalsMainClass(AnimalsLogger):
             self.logger.debug(f"{__class__.__name__} wrote data to db")
             return True
 
-    def add_new_animal(self, animal_dict: dict):
+    def add_new_animal_db(self, animal_dict: dict):
         """ checks new dict and add new animal"""
         for old_dict in self.cur_db_list:
             # checks for name duplicate
@@ -60,12 +60,12 @@ class AnimalsMainClass(AnimalsLogger):
 if __name__ == '__main__':
     connector = AnimalsMainClass()
     print(connector.cur_db_list)
-    print(connector.add_new_animal({'order': 'pets', 'genus': 'dogs', 'name': 'Peppa', 'commands': 'come, sit, lay, stand'}))
+    print(connector.add_new_animal_db({'order': 'pets', 'genus': 'dogs', 'name': 'Peppa', 'commands': 'come, sit, lay, stand'}))
     data_list = [{'kingdom': 'animals', 'order': 'pets', 'genus': 'dogs', 'name': 'Alfie', 'commands': 'come, sit, lay, stand'},
      {'kingdom': 'animals', 'order': 'packs', 'genus': 'horses', 'name': 'Roach', 'commands': 'come, go, stop'},
      {'kingdom': 'animals', 'order': 'pets', 'genus': 'cats', 'name': 'Kittie', 'commands': 'come, sit, lay'},
      {'kingdom': 'animals', 'order': 'pets', 'genus': 'dogs', 'name': 'Peppa', 'commands': 'come, sit, lay, stand'},
      {'kingdom': 'animals', 'order': 'pets', 'genus': 'cats', 'name': 'Ralf', 'commands': 'come, sit, lay, stand'}]
 
-    print(connector.add_new_animal(
+    print(connector.add_new_animal_db(
         {'kingdom': 'animals', 'order': 'pets', 'genus': 'cats', 'name': 'Ralf', 'commands': 'come, sit, lay, stand'}))
