@@ -1,11 +1,13 @@
 from AnimalsMainClass import AnimalsMainClass
 
 
-class ReadCsv(AnimalsMainClass):
+class ReadCsv():
     """ class for getting info from csv file in main directory"""
 
     file_name = "animals_csv_db_utf.csv"
-    def __init__(self): super().__init__()
+
+    def __init__(self):
+        super().__init__()
 
     def get_data(self, file_name=None):
         if not file_name:
@@ -30,7 +32,6 @@ class ReadCsv(AnimalsMainClass):
         return True
 
 
-
 if __name__ == '__main__':
     connector_csv = ReadCsv()
     data = connector_csv.get_data()
@@ -38,6 +39,3 @@ if __name__ == '__main__':
     # new_data = data.pop()
     # print(new_data)
     # connector_csv.put_data([new_data])
-
-
-
