@@ -12,7 +12,7 @@ class AnimalsMainClass(AnimalsLogger):
 
     def add_new_animal(self, name: str, commands_str: str):
         self.add_name(name)
-        self.add_command(commands_str)
+        self.animal_commands = commands_str.split(', ')
         return self
 
     def add_name(self, name: str):

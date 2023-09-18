@@ -31,4 +31,8 @@ if __name__ == '__main__':
     cat_obj = CatsClass()
     new_cat = cat_obj.add_new_animal("Kittie", "voice,eat")
     connector.animals_list.append(new_cat)
+    from HorsesClass import HorsesClass
+    new_horse = HorsesClass().add_new_animal("Roach", "go")
+    connector.animals_list.append(new_horse)
+
     connector.start_program()
