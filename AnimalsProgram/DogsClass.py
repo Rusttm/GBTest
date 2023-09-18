@@ -1,2 +1,5 @@
-class DogsClass:
+from PetsMainClass import PetsMainClass
+
+
+class DogsClass(PetsMainClass):
     pass
