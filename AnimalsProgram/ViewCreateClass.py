@@ -57,6 +57,7 @@ class ViewCreateClass(MenuMainClass):
             else:
                 res_string = f"Животное {new_animal} Не добавлено"
                 print(res_string)
+                self.AnimalsMainClass.logger.debug(res_string)
 
 
 
