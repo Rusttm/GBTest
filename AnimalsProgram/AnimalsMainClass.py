@@ -5,6 +5,7 @@ class AnimalsMainClass(AnimalsLogger):
     kingdom_class = "animals"
     cur_db_list = None
     db_headers = ["kingdom", "order", "genus", "name", "commands"]
+    animals_genus_dict = {"horses": "лошадь", "cats": "кошка", "dogs": "собака", "hamsters": "хомяк", "camels": "верблюд"}
 
     def __init__(self):
         super().__init__()
