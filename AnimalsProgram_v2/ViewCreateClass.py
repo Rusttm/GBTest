@@ -51,11 +51,17 @@ class ViewCreateClass(MenuMainClass):
                     res_string = f"{new_animal_obj.animal_rus.capitalize()} с такой кличкой уже существует, поэтому Не добавлено"
                     print(res_string)
                     return self.animals_list
-
-            new_animal_obj.add_new_animal(new_animal_name, new_animal_commands_str)
-            res_string = f"Животное {new_animal_obj.animal_name} успешно добавлено"
-            print(res_string)
-            self.animals_list.append(new_animal_obj)
+            try:
+                new_animal_obj.add_new_animal(new_animal_name, new_animal_commands_str)
+                res_string = f"Животное {new_animal_obj.animal_name} успешно добавлено"
+                print(res_string)
+                self.animals_list.append(new_animal_obj)
+            except Exception as e:
+                print(e)
+            else:
+                from CountClass import CountClass
+                counter = CountClass()
+                counter.add()
             return self.animals_list
 
 
