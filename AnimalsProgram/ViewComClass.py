@@ -28,8 +28,11 @@ class ViewComClass(MenuMainClass):
                 self.print_corr1_menu(animal_name)
                 user_answer = self.get_answer()
 
-            if (user_answer == "0") or (user_answer == ""):
+            if (user_answer == "0") or (user_answer == "") or (user_answer in commands_list):
                 print(f"{animal_name} дополнительно не обучился.")
+                break
+            elif user_answer in commands_list:
+                print(f"{animal_name} уже знает эту комманду.")
                 break
             else:
                 new_command = user_answer
@@ -37,6 +40,7 @@ class ViewComClass(MenuMainClass):
                 self.AnimalsMainClass.cur_db_list.pop(animal_index)
                 self.AnimalsMainClass.cur_db_list.append(animal)
                 self.AnimalsMainClass.save_db()
+                print(f"{animal_name} обучился комманде '{new_command}'")
 
 
 

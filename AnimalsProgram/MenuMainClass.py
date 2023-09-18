@@ -59,17 +59,17 @@ class MenuMainClass:
         print("0: для выхода")
 
     def print_corr1_menu(self, animal_name: str):
-        print(f"Обучение животного.\nВведите новую комманду для {animal_name}")
+        print(f"Обучение животного.\nВведите новую комманду для {animal_name}: ")
         print("0: для выхода")
     def get_answer(self, right_answers_list: list = None) -> str:
         if right_answers_list:
             while True:
-                user_answer = input(f"Нажмите один из предложенных вариантов {','.join(right_answers_list)}:")
+                user_answer = input(f"Нажмите один из предложенных вариантов {','.join(right_answers_list)}: ")
                 if user_answer in right_answers_list:
                     return user_answer
         else:
             while True:
-                user_answer = input(f"Введите любое значение, либо '0' для выхода")
+                user_answer = input(f"Введите любое значение, либо '0' для выхода: ")
                 if user_answer:
                     return user_answer
 
