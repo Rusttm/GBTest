@@ -3,7 +3,7 @@ from AnimalsLogger import AnimalsLogger
 
 class AnimalsMainClass(AnimalsLogger):
     kingdom_class = "animals"
-    cur_db_list = None
+    cur_db_list: list = None
     db_headers = ["kingdom", "order", "genus", "name", "commands"]
     animals_genus_dict = {"horses": "лошадь", "cats": "кошка", "dogs": "собака", "hamsters": "хомяк", "camels": "верблюд"}
 
