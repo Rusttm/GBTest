@@ -9,10 +9,13 @@ class MainClass(AnimalsMainClass, MenuMainClass):
         btn_command = "start"
         while btn_command != "0":
             self.print_main_menu()
-            btn_command = input("? ")
-            if btn_command == "1":
+            user_answer = self.get_answer(["0", "1", "2"])
+            if user_answer == "1":
                 from ViewAllClass import ViewAllClass
                 ViewAllClass().view_all_db()
+            elif user_answer == "2":
+                from ViewCreateClass import ViewCreateClass
+                ViewCreateClass().print_create_menu()
         return True
 
 

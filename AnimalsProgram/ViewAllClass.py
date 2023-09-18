@@ -13,11 +13,11 @@ class ViewAllClass(AnimalsMainClass, MenuMainClass):
                 animal_genus_name = self.animals_genus_dict.get(animal_genus, None)
                 animal_name = animal.get('name', None)
                 print(f"{animal_genus_name.capitalize()} с кличкой {animal_name.capitalize()} знает комманды: {animal.get('commands', None)}")
-            btn_command = input("? ")
-            if btn_command == "0":
+            user_answer = self.get_answer(["0"])
+            if user_answer == "0":
                 break
 
 
 if __name__ == '__main__':
     new_view = ViewAllClass()
-    new_view.main()
+    new_view.view_all_db()
