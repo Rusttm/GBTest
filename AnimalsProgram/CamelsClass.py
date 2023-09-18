@@ -1,3 +1,6 @@
 from PacksMainClass import PacksMainClass
+
+
 class CamelsClass(PacksMainClass):
-    pass
+    def __init__(self): super().__init__()
+
