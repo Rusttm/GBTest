@@ -32,3 +32,4 @@ class AnimalsMainClass(AnimalsLogger):
 if __name__ == '__main__':
     animal_class = AnimalsMainClass()
     print(animal_class.get_animal_dict())
+    print(animal_class.get_commands_str())

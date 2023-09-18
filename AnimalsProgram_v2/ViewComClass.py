@@ -1,49 +1,57 @@
+import time
+
 from MenuMainClass import MenuMainClass
 
 
 class ViewComClass(MenuMainClass):
-    def __init__(self, AnimalsMainClass): 
+
+    def __init__(self, animals_list: list):
         super().__init__()
-        self.AnimalsMainClass = AnimalsMainClass
+        self.animals_list = animals_list
+
 
     def view_change_animal_com(self):
         while True:
-            animals_list = self.AnimalsMainClass.cur_db_list
-            if animals_list:
-                names_list = [animal.get("name", None) + ": " + animal.get("commands", None) for animal in animals_list]
+
+
+            if self.animals_list:
+                names_list = []
+                for animal in self.animals_list:
+                    a_type = animal.animal_rus
+                    a_name = animal.animal_name
+                    a_commands_str = ', '.join(animal.animal_commands)
+                    names_list.append(f"{a_type} {a_name} знает команды: {a_commands_str}")
             else:
-                names_list = None
+                print("Список животных пуст")
+                break
             self.print_corr_menu(names_list)
             # list of names: commands
-            user_answer = self.get_answer([str(pos) for pos in range(len(animals_list)+1)])
+            user_answer = self.get_answer([str(pos) for pos in range(len(self.animals_list)+1)])
             if (user_answer == "0") or (user_answer == ""):
                 break
             else:
                 animal_index = int(user_answer)-1
-                animal = animals_list[animal_index]
-                animal_commands = animal.get("commands", None)
-                animal_name = animal.get("name", None)
-                if animal_commands:
-                    commands_list = str(animal_commands).split(',')
+                animal = self.animals_list[animal_index]
+                # print(animal.animal_name)
+                # animal_commands = animal.get("commands", None)
+                animal_name = animal.animal_name
+                # if animal_commands:
+                #     commands_list = str(animal_commands).split(',')
                 self.print_corr1_menu(animal_name)
                 user_answer = self.get_answer()
 
-            if (user_answer == "0") or (user_answer == "") or (user_answer in commands_list):
+            if (user_answer == "0") or (user_answer == ""):
                 print(f"{animal_name} дополнительно не обучился.")
-                break
-            elif user_answer in commands_list:
+                return self.animals_list
+            elif user_answer in animal.animal_commands:
                 print(f"{animal_name} уже знает эту комманду.")
-                break
+                return self.animals_list
             else:
                 new_command = user_answer
-                animal["commands"] = animal.get("commands", None) + "," + new_command
-                self.AnimalsMainClass.cur_db_list.pop(animal_index)
-                self.AnimalsMainClass.cur_db_list.append(animal)
-                self.AnimalsMainClass.save_db()
+                animal.add_command(new_command)
                 print(f"{animal_name} обучился комманде '{new_command}'")
-
-
-
+                time.sleep(2)
+                return self.animals_list
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ class MainClass(MenuMainClass):
             elif user_answer == "3":
                 from ViewComClass import ViewComClass
                 commands_view = ViewComClass(self.animals_list)
-                commands_view.view_change_animal_com()
+                self.animals_list = commands_view.view_change_animal_com()
         return True
 
 
