@@ -1,10 +1,10 @@
 from AnimalsMainClass import AnimalsMainClass
-
+import os
 
 class ConnCsv():
     """ class for getting info from csv file in main directory"""
-
-    file_name = "animals_csv_db_utf.csv"
+    cur_dir = os.path.dirname(os.path.abspath(__file__))
+    file_name = os.path.join(cur_dir, "animals_csv_db_utf.csv")
 
     def __init__(self):
         super().__init__()
