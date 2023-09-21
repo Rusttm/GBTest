@@ -52,21 +52,168 @@ $ sudo dpkg -P mysql
 
 7. В подключенном MySQL репозитории создать базу данных “Друзья
 человека”
+Ответ:
+CREATE DATABASE IF NOT EXISTS Друзья_человека;
 
 8. Создать таблицы с иерархией из диаграммы в БД
+Ответ:
+CREATE TABLE IF NOT EXISTS animals
+	(animal_group VARCHAR(255) NOT NULL PRIMARY KEY);
+CREATE TABLE IF NOT EXISTS pets
+	(animal_type VARCHAR(255) NOT NULL PRIMARY KEY,
+	animal_group VARCHAR(255) DEFAULT 'pets', FOREIGN KEY (animal_group) REFERENCES animals(animal_group));
+CREATE TABLE IF NOT EXISTS packs
+	(animal_type VARCHAR(255) NOT NULL PRIMARY KEY,
+	animal_group VARCHAR(255) DEFAULT 'packs', FOREIGN KEY (animal_group) REFERENCES animals(animal_group));
+CREATE TABLE IF NOT EXISTS dogs
+	(animal_name VARCHAR(255) NOT NULL PRIMARY KEY,
+	animal_commands TEXT,
+	animal_birth Date,
+	animal_type VARCHAR(255) DEFAULT 'dogs', FOREIGN KEY (animal_type) REFERENCES pets(animal_type),
+	animal_group VARCHAR(255) DEFAULT 'pets',  FOREIGN KEY (animal_group) REFERENCES animals(animal_group));
+CREATE TABLE IF NOT EXISTS cats
+	(animal_name VARCHAR(255) NOT NULL PRIMARY KEY,
+	animal_commands TEXT,
+	animal_birth Date,
+	animal_type VARCHAR(255) DEFAULT 'cats', FOREIGN KEY (animal_type) REFERENCES pets(animal_type),
+	animal_group VARCHAR(255) DEFAULT 'pets',  FOREIGN KEY (animal_group) REFERENCES animals(animal_group));
+CREATE TABLE IF NOT EXISTS hamsters
+	(animal_name VARCHAR(255) NOT NULL PRIMARY KEY,
+	animal_commands TEXT,
+	animal_birth Date,
+	animal_type VARCHAR(255) DEFAULT 'hamsters', FOREIGN KEY (animal_type) REFERENCES pets(animal_type),
+	animal_group VARCHAR(255) DEFAULT 'pets',  FOREIGN KEY (animal_group) REFERENCES animals(animal_group));
+CREATE TABLE IF NOT EXISTS horses
+	(animal_name VARCHAR(255) NOT NULL PRIMARY KEY,
+	animal_commands TEXT,
+	animal_birth Date,
+	animal_type VARCHAR(255) DEFAULT 'horses', FOREIGN KEY (animal_type) REFERENCES packs(animal_type),
+	 animal_group VARCHAR(255) DEFAULT 'packs',  FOREIGN KEY (animal_group) REFERENCES animals(animal_group));
+CREATE TABLE IF NOT EXISTS camels
+	(animal_name VARCHAR(255) NOT NULL PRIMARY KEY,
+	animal_commands TEXT,
+	animal_birth Date,
+	animal_type VARCHAR(255) DEFAULT 'camels', FOREIGN KEY (animal_type) REFERENCES packs(animal_type),
+	animal_group VARCHAR(255) DEFAULT 'packs',  FOREIGN KEY (animal_group) REFERENCES animals(animal_group));
+CREATE TABLE IF NOT EXISTS donkeys
+	(animal_name VARCHAR(255) NOT NULL PRIMARY KEY,
+	animal_commands TEXT,
+	animal_birth Date,
+	animal_type VARCHAR(255) DEFAULT 'donkeys', FOREIGN KEY (animal_type) REFERENCES packs(animal_type),
+	animal_group VARCHAR(255) DEFAULT 'packs',  FOREIGN KEY (animal_group) REFERENCES animals(animal_group))
+
+
 
 9. Заполнить низкоуровневые таблицы именами(животных), командами
 которые они выполняют и датами рождения
 
+INSERT INTO animals (animal_group)
+VALUES
+	('pets'),
+	('packs');
+INSERT INTO pets (animal_type)
+VALUES
+	('dogs'),
+	('cats'),
+	('hamsters');
+INSERT INTO packs (animal_type)
+VALUES
+	('horses'),
+	('camels'),
+	('donkeys');
+INSERT INTO dogs (animal_name, animal_commands, animal_birth)
+VALUES
+	('Bark', 'sit', '2020-01-31'),
+	('Alf', 'sit', '2022-05-13');
+INSERT INTO cats (animal_name, animal_commands, animal_birth)
+VALUES
+	('Kittie', 'come', '2023-01-18'),
+	('Leo', 'come eat, ', '2022-02-02');
+INSERT INTO hamsters (animal_name, animal_commands, animal_birth)
+VALUES
+	('Fluffy', '', '2023-07-04'),
+	('Lola', '', '2023-08-02');
+INSERT INTO horses (animal_name, animal_commands, animal_birth)
+VALUES
+	('Amigo', 'come', '2019-01-04'),
+	('Ivy', 'go', '2021-11-27');
+INSERT INTO camels (animal_name, animal_commands, animal_birth)
+VALUES
+	('Alladin', 'stand', '2018-01-09'),
+	('Sandy', 'stand', '2020-06-24');
+INSERT INTO donkeys (animal_name, animal_commands, animal_birth)
+VALUES
+	('Oscar', 'stand, go', '2019-06-11'),
+	('Pixie', 'eat', '2023-03-25')
+
+
 10. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой
-питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
+питомник на зимовку. 
+Ответ:
+DROP TABLE IF EXISTS camels
+
+Объединить таблицы лошади, и ослы в одну таблицу.
+Ответ:
+INSERT INTO horses SELECT  * FROM    donkeys d 
+ON DUPLICATE KEY
+UPDATE horses.animal_birth = d.animal_birth
 
 11.Создать новую таблицу “молодые животные” в которую попадут все
-животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью
+животные старше 1 года, но младше 3 лет 
+Ответ:
+CREATE TABLE молодые_животные
+AS 
+SELECT * FROM
+(SELECT * FROM cats 
+UNION SELECT * FROM dogs 
+UNION SELECT * FROM hamsters
+UNION SELECT * FROM horses
+UNION SELECT * FROM donkeys)
+as new_table
+WHERE (animal_birth BETWEEN DATE_SUB( CURDATE( ) ,INTERVAL 3 YEAR ) AND DATE_SUB( CURDATE( ) ,INTERVAL 1 YEAR ))
+
+и в отдельном столбце с точностью
 до месяца подсчитать возраст животных в новой таблице
+
+SELECT animal_birth, TIMESTAMPDIFF(MONTH, animal_birth, CURDATE( ))
+AS animal_age
+FROM молодые_животные
 
 12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на
 прошлую принадлежность к старым таблицам.
+Ответ:
+CREATE TABLE union_table
+AS 
+SELECT * FROM
+(SELECT t1.*, null AS animal_age, 'cats' AS base_table_name
+FROM cats as t1
+UNION ALL
+SELECT t2.*, null AS animal_age, 'dogs' AS base_table_name
+	FROM dogs as t2
+UNION ALL
+SELECT t3.*, null AS animal_age, 'hamsters' AS base_table_name
+	FROM hamsters as t3
+UNION ALL
+SELECT t4.*, null AS animal_age, 'horses' AS base_table_name
+	FROM horses as t4
+UNION ALL
+SELECT t5.*, null AS animal_age, 'donkeys' AS base_table_name
+	FROM donkeys as t5
+UNION ALL
+SELECT t6.*, 'молодые_животные' AS base_table_name
+    FROM молодые_животные as t6
+UNION ALL
+SELECT null, null, null, null, t7.*, null AS animal_age, 'animals' AS base_table_name
+    FROM animals as t7
+UNION ALL
+SELECT null, null, null, t8.*, null AS animal_age, 'pets' AS base_table_name
+    FROM pets as t8
+UNION ALL
+SELECT null, null, null, t9.*, null AS animal_age, 'packs' AS base_table_name
+    FROM packs as t9
+ ) as_temp_table
+
+
 
 Примечание к пп13-15: Нигде не написано об языке программирования, и я задавал вопрос насчет возможности использования Python.
 Ответа так и не получил, поэтому написал на нем.
@@ -89,7 +236,7 @@ $ sudo dpkg -P mysql
 14.3 увидеть список команд, которое выполняет животное
 14.4 обучить животное новым командам
 Ответ: сделал в одном меню со списком животных и текущих команд,
-т.к. для обоих пунктов(14.3 и 14.4) требуется этот список
+т.к. для обоих пунктов(14.3 и 14.4) он требуется
 
 14.5 Реализовать навигацию по меню
 Ответ: навигация сделана с помощью класса MenuMainClass
